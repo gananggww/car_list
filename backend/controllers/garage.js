@@ -1,21 +1,26 @@
 const model = require('../models')
-const services = require('../services/garage')
+const isValid = require('../helpers/input_validation')
+
 class Controller {
   insert(req, res) {
-    model.Garage.create(req.body)
-    .then(response=>{
-      res.send({
-        status_code: 1,
-        messege: 'success insert',
-        data: response
+    if (isValid.garage(req.body) === 'pass') {
+      model.Garage.create(req.body)
+      .then(response=>{
+        res.send({
+          status_code: 1,
+          messege: 'success insert',
+          data: response
+        })
       })
-    })
-    .catch(err => {
-      res.send({
-        status_code: 0,
-        messege: err
+      .catch(err => {
+        res.send({
+          status_code: 0,
+          messege: err
+        })
       })
-    })
+    } else {
+      res.send(isValid.garage(req.body))
+    }
   }
   findAll(req, res) {
     model.Garage.findAll()

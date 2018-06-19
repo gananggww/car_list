@@ -1,21 +1,27 @@
 const model = require('../models')
+const isValid = require('../helpers/input_validation')
 
 class Controller {
   insert(req, res) {
-    model.Car.create(req.body)
-    .then(response=>{
-      res.send({
-        status_code: 1,
-        messege: 'success insert',
-        data: response
+    req.body['regis_date'] = new Date()
+    if (isValid.car(req.body) === 'pass') {
+      model.Car.create(req.body)
+      .then(response=>{
+        res.send({
+          status_code: 1,
+          messege: 'success insert',
+          data: response
+        })
       })
-    })
-    .catch(err => {
-      res.send({
-        status_code: 0,
-        messege: err
+      .catch(err => {
+        res.send({
+          status_code: 0,
+          messege: err
+        })
       })
-    })
+    } else {
+      res.send(isValid.car(req.body))
+    }
   }
   findAll(req, res) {
     model.Car.findAll()
