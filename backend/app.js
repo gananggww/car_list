@@ -6,8 +6,11 @@ const logger = require('morgan');
 
 const carRouter = require('./routes/car');
 const garageRouter = require('./routes/garage');
+const cors = require('cors')
 
 const app = express();
+
+app.use(cors())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

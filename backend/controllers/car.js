@@ -86,6 +86,26 @@ class Controller {
       })
     })
   }
+  findOneByGaragesId(req, res) {
+    model.Car.findAll({
+      where: {
+        garages_id: req.params.garages_id
+      }
+    })
+    .then(response => {
+      res.send({
+        status_code: 1,
+        messege: `success findById ${req.params.id}`,
+        data: response
+      })
+    })
+    .catch(err => {
+      res.send({
+        status_code: 0,
+        messege: err
+      })
+    })
+  }
 }
 
 const controller = new Controller()

@@ -1,0 +1,19 @@
+.garage-container {
+  /* background-color: red; */
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.item {
+  margin-bottom: 20px;
+  /* height: 40px; */
+  border-radius: 5px;
+  background-color: #FAFAFA;
+  box-shadow: 2.5px 2.5px 4px 1px #888888;
+}
+a {
+  text-decoration: none !important;
+  color: black;
+}
