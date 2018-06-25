@@ -6,6 +6,7 @@
 }
 
 .container-item {
+  margin-top: 10px;
   min-width: 700px;
   width: 80%;
   margin-bottom: 20px;
@@ -143,4 +144,22 @@ input {
   cursor: pointer;
   background-color: #64B5F6;
   border-bottom-left-radius: 5px
+}
+
+.container-insert {
+  margin: 10px;
+}
+
+#openmodal-insert {
+  color: white;
+  width: 1000px;
+  background-color: #26A69A;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#openmodal-insert:hover {
+  cursor: pointer;
+  background-color: #4DB6AC;
 }

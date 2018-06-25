@@ -19,6 +19,8 @@ const garageReducer = (state=defaultState, action) => {
       return {...state, edit_modal: action.payload[1], edit_value: action.payload[0]}
     case 'EDIT_GARAGE':
       return {...state, garages: [...state.garages.map(g => g.id === action.payload.id ? action.payload : g)]}
+    case 'INSERT_GARAGE':
+      return {...state, car: state.car.concat(action.payload)}
     default:
     return state
   }

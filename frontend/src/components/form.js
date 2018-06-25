@@ -23,8 +23,10 @@ class Form extends Component {
   }
   render() {
     return (
-      <div>
-        <button onClick={() => this.setState({modal:'block'})} id="myBtn">Open Modal</button>
+      <div className="container-insert">
+        <a onClick={() => this.setState({modal:'block'})} id="openmodal-insert">
+          Input Garage
+        </a>
         <div style={{display: `${this.state.modal}`}} id="myModal" class="modal">
           <div className="modal-content">
             <a onClick={() => this.setState({modal:'none'})} class="close">&times;</a>
@@ -41,7 +43,6 @@ class Form extends Component {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     )

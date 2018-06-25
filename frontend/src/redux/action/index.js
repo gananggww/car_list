@@ -21,6 +21,13 @@ export const actionInsertGarage = (payload) => {
   }
 }
 
+export const actionInsertCar = (payload) => {
+  return {
+    type: 'INSERT_CAR',
+    payload
+  }
+}
+
 export const actionDeleteGarage = (payload) => {
   return {
     type: 'DELETE_GARAGE',
@@ -74,6 +81,21 @@ export const insertGarage = (payload) => {
   .then(response => {
     if (response.data.status_code == 1) {
       dispatch(actionInsertGarage(response.data.data))
+    }
+  })
+  }
+}
+
+export const insertCar = (payload) => {
+  return (dispatch, getState) => {
+  payload[0].garages_id = payload[1]
+  console.log(payload);
+  const url = `http://localhost:3001/api/car`
+  axios.post(url, payload[0])
+  .then(response => {
+    console.log(response);
+    if (response.data.status_code == 1) {
+      dispatch(actionInsertCar(response.data.data))
     }
   })
   }
