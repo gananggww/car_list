@@ -23,7 +23,7 @@ class Controller {
     }
   }
   findAll(req, res) {
-    model.Garage.findAll()
+    model.Garage.findAll({order: [['updatedAt', 'DESC']]})
     .then(response => {
       res.send({
         status_code: 1,
@@ -84,6 +84,29 @@ class Controller {
         messege: err
       })
     })
+  }
+  updateOne(req, res) {
+    if (isValid.garage(req.body) === 'pass') {
+      model.Garage.update(req.body, {
+        where: {
+          id: req.params.id
+        }
+      })
+      .then(response=>{
+        res.send({
+          status_code: 1,
+          messege: 'success update'
+        })
+      })
+      .catch(err => {
+        res.send({
+          status_code: 0,
+          messege: err
+        })
+      })
+    } else {
+      res.send(isValid.garage(req.body))
+    }
   }
 }
 const controller = new Controller()

@@ -6,6 +6,8 @@ router.get('/', garage_controller.findAll)
 router.post('/', garage_controller.insert)
 router.get('/:id', garage_controller.findOne)
 router.delete('/:id', garage_controller.deleteOne)
+router.put('/:id', garage_controller.updateOne)
+
 
 
 module.exports = router;
