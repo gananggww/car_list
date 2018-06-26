@@ -55,7 +55,7 @@ class Controller {
       } else {
         res.send({
           status_code: status_code,
-          messege: 'garage tidak tersedia'
+          messege: 'car tidak tersedia'
         })
       }
     })
@@ -105,6 +105,29 @@ class Controller {
         messege: err
       })
     })
+  }
+  updateOne(req, res) {
+    if (isValid.car(req.body) === 'pass') {
+      model.Car.update(req.body, {
+        where: {
+          id: req.params.id
+        }
+      })
+      .then(response=>{
+        res.send({
+          status_code: 1,
+          messege: 'success update'
+        })
+      })
+      .catch(err => {
+        res.send({
+          status_code: 0,
+          messege: err
+        })
+      })
+    } else {
+      res.send(isValid.car(req.body))
+    }
   }
 }
 

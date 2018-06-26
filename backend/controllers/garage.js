@@ -47,9 +47,24 @@ class Controller {
     .then(response => {
       let status_code = JSON.stringify(response)
       if (status_code == 1) {
-        res.send({
-          status_code: status_code,
-          messege: 'berhasil dihapus'
+        model.Car.destroy({
+          where: {
+            garages_id: req.params.id
+          }
+        })
+        .then(response => {
+          let status_code = JSON.stringify(response)
+          if (status_code == 1) {
+            res.send({
+              status_code: status_code,
+              messege: 'berhasil dihapus'
+            })
+          } else {
+            res.send({
+              status_code: 1,
+              messege: 'car tidak tersedia'
+            })
+          }
         })
       } else {
         res.send({

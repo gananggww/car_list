@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
-import { cars } from '../redux/action'
+import { cars, deleteCar, actionModalEditCar } from '../redux/action'
 
 import FormCar from './form-car.js'
+import EditCar from './edit-car'
+
 
 class Car extends Component {
   componentDidMount () {
@@ -16,6 +18,9 @@ class Car extends Component {
       <div className="garage-container">
         <div>
           <FormCar id_garage={this.props.match.params.id}/>
+        </div>
+        <div>
+          <EditCar id_garage={this.props.match.params.id}/>
         </div>
         {
           this.props.carList_state.map(e => {
@@ -51,8 +56,8 @@ class Car extends Component {
                   </div>
                 </div>
                 <div className="content-opsi">
-                  <a className="opsi edit">Edit</a>
-                  <a className="opsi hapus">Hapus</a>
+                  <a onClick={() => this.props.modalEditCar_dispatch([e, 'block'])} className="opsi edit">Edit</a>
+                  <a onClick={() => this.props.deleteCar_dispatch(e)} className="opsi hapus">Hapus</a>
                 </div>
               </div>
             )
@@ -73,7 +78,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    carsList_dispatch: (payload) => dispatch(cars(payload))
+    carsList_dispatch: (payload) => dispatch(cars(payload)),
+    deleteCar_dispatch: (payload) => dispatch(deleteCar(payload)),
+    modalEditCar_dispatch: (payload) => dispatch(actionModalEditCar(payload)),
   }
 }
 

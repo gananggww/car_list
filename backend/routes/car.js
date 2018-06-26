@@ -7,6 +7,7 @@ router.post('/', car_controller.insert)
 router.get('/garage/:id', car_controller.findOne)
 router.delete('/:id', car_controller.deleteOne)
 router.get('/:garages_id', car_controller.findOneByGaragesId)
+router.put('/:id', car_controller.updateOne)
 
 
 
