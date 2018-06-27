@@ -163,3 +163,63 @@ input {
   cursor: pointer;
   background-color: #4DB6AC;
 }
+
+/* LOGIN */
+
+.container-login {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width:600px) {
+  .login {
+    width: 70%;
+  }
+}
+
+@media (min-width:600px) {
+  .login {
+    width: 40%;
+  }
+}
+.login {
+  padding: 40px;
+  margin-top: 100px;
+  box-shadow: 2.5px 2.5px 4px 1px #888888;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login input {
+  margin-top: 20px;
+}
+
+.login-button {
+  border-radius: 5px;
+  width: 150px;
+  height: 30px;
+  background-color: #1976D2;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.login-text {
+  font-size: 25px;
+  font-weight: bold;
+  color:#212121;
+}
+
+.login-button:hover {
+  cursor: pointer;
+  background-color: #1565C0;
+}
+
+
+
+
+
+/* LOGIN - END */

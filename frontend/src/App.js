@@ -4,6 +4,8 @@ import { Provider } from 'react-redux'
 
 import Car from './components/car'
 import Garage from './components/garage'
+import Login from './components/login'
+
 
 import './App.css';
 
@@ -15,8 +17,9 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div>
-            <Route exact path="/" component={Garage} />
-            <Route path="/:id" component={Car} />
+            <Route exact path="/" component={Login} />
+            <Route path="/garages" component={Garage} />
+            <Route path="/garages/:id" component={Car} />
           </div>
         </Router>
       </Provider>
