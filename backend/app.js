@@ -6,6 +6,7 @@ const logger = require('morgan');
 
 const carRouter = require('./routes/car');
 const garageRouter = require('./routes/garage');
+const userRouter = require('./routes/user');
 const cors = require('cors')
 
 const app = express();
@@ -24,6 +25,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/car', carRouter);
 app.use('/api/garage', garageRouter);
+app.use('/api/user', userRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
