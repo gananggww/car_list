@@ -19,7 +19,11 @@ class Form extends Component {
   }
 
   form () {
-    this.props.insertGarage_dispatch(this.state)
+    let token = localStorage.getItem('token')
+    let role = localStorage.getItem('role')
+    if (token && role === "admin") {
+      this.props.insertGarage_dispatch({form:this.state, token})
+    }
   }
   render() {
     return (

@@ -12,18 +12,50 @@ import '../App.css'
 
 class Garage extends Component {
   componentWillMount() {
-    this.props.garagesList_dispatch()
+    let token = localStorage.getItem('token')
+    let role = localStorage.getItem('role')
+    if (token) {
+      this.props.garagesList_dispatch(token)
+    } else {
+      if (this.props.history) {
+        this.props.history.push('/')
+      }
+    }
+  }
+
+  ifAdminEditHapus (e) {
+    let role = localStorage.getItem('role')
+    let token = localStorage.getItem('token')
+    if (role === 'admin') {
+      return (
+        <div className="content-opsi">
+          <a onClick={() => this.props.modalEditGarage_dispatch([e, 'block'])} className="opsi edit">Edit</a>
+          <a onClick={() => this.props.deleteGarage_dispatch({e, token})} className="opsi hapus">Hapus</a>
+        </div>
+      )
+    }
+  }
+
+  ifAdminModal () {
+    let role = localStorage.getItem('role')
+    if (role === 'admin') {
+      return (
+        <div>
+          <div>
+            {<Form/>}
+          </div>
+          <div>
+            <Edit/>
+          </div>
+        </div>
+      )
+    }
   }
 
   render() {
     return (
       <div className="garage-container">
-        <div>
-          <Form/>
-        </div>
-        <div>
-          <Edit/>
-        </div>
+          {this.ifAdminModal()}
           {
             this.props.garages_state.map(e => {
               return (
@@ -47,10 +79,7 @@ class Garage extends Component {
                       </div>
                     </div>
                   </Link>
-                  <div className="content-opsi">
-                    <a onClick={() => this.props.modalEditGarage_dispatch([e, 'block'])} className="opsi edit">Edit</a>
-                    <a onClick={() => this.props.deleteGarage_dispatch(e)} className="opsi hapus">Hapus</a>
-                  </div>
+                  {this.ifAdminEditHapus(e)}
                 </div>
 
               )
@@ -64,12 +93,13 @@ class Garage extends Component {
 const mapStateToProps = (state) => {
   return {
     garages_state: state.garages,
+
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    garagesList_dispatch: () => dispatch(garages()),
+    garagesList_dispatch: (payload) => dispatch(garages(payload)),
     carsList_dispatch: (payload) => dispatch(cars(payload)),
     deleteGarage_dispatch: (payload) => dispatch(deleteGarage(payload)),
     modalEditGarage_dispatch: (payload) => dispatch(actionModalEditGarage(payload)),

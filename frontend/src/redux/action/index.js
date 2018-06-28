@@ -69,10 +69,19 @@ export const actionEditCar = (payload) => {
   }
 }
 
-export const garages = () => {
+export const actionLogin = (payload) => {
+  return {
+    type: 'LOGIN',
+    payload
+  }
+}
+
+
+
+export const garages = (payload) => {
   return (dispatch, getState) => {
   const url = `http://localhost:3001/api/garage`
-  axios.get(url)
+  axios.get(url, {headers: {token: payload}})
   .then(response => {
     if (response.data.data) {
       dispatch(actionGarages(response.data.data))
@@ -102,9 +111,8 @@ export const cars = (id) => {
 export const insertGarage = (payload) => {
   return (dispatch, getState) => {
   const url = `http://localhost:3001/api/garage`
-  axios.post(url, payload)
+  axios.post(url, payload.form, {headers:{token:payload.token}})
   .then(response => {
-    console.log(response);
     if (response.data.status_code == 1) {
       dispatch(actionInsertGarage(response.data.data))
     }
@@ -118,7 +126,6 @@ export const insertCar = (payload) => {
   const url = `http://localhost:3001/api/car`
   axios.post(url, payload[0])
   .then(response => {
-    console.log(response);
     if (response.data.status_code == 1) {
       dispatch(actionInsertCar(response.data.data))
     }
@@ -128,12 +135,11 @@ export const insertCar = (payload) => {
 
 export const deleteGarage = (payload) => {
   return (dispatch, getState) => {
-  const url = `http://localhost:3001/api/garage/${payload.id}`
-  axios.delete(url)
+  const url = `http://localhost:3001/api/garage/${payload.e.id}`
+  axios.delete(url, {headers: {token: payload.token}})
   .then(response => {
-    console.log('==========',response);
     if (response.data.status_code == 1) {
-      dispatch(actionDeleteGarage(payload))
+      dispatch(actionDeleteGarage(payload.e))
     }
   })
   }
@@ -156,11 +162,11 @@ export const editGarage = (payload) => {
   return (dispatch, getState) => {
   const id = getState().edit_value.id
   const url = `http://localhost:3001/api/garage/${id}`
-  axios.put(url, payload)
+  axios.put(url, payload.form, {headers:{token: payload.token}})
   .then(response => {
     if (response.data.status_code == 1) {
-      payload.id = id
-      dispatch(actionEditGarage(payload))
+      payload.form.id = id
+      dispatch(actionEditGarage(payload.form))
     }
   })
   }
@@ -173,10 +179,29 @@ export const editCar = (payload) => {
   const url = `http://localhost:3001/api/car/${id}`
   axios.put(url, payload[0])
   .then(response => {
-    console.log(response);
     if (response.data.status_code == 1) {
       payload[0].id = id
       dispatch(actionEditCar(payload[0]))
+    }
+  })
+  }
+}
+
+
+export const login = (payload) => {
+  return (dispatch, getState) => {
+  const url = `http://localhost:3001/api/user/login`
+  axios.post(url, payload)
+  .then(response => {
+    if (response.data.status_code == 1) {
+      localStorage.setItem('token', response.data.token)
+      localStorage.setItem('role', response.data.role)
+      let tokenStat = localStorage.getItem('token')
+      let role = localStorage.getItem('role')
+
+      if (tokenStat && role) {
+        dispatch(actionLogin({tokenStat, role}))
+      }
     }
   })
   }

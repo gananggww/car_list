@@ -25,6 +25,14 @@ class Edit extends Component {
     })
   }
 
+  editGarage() {
+    let token = localStorage.getItem('token')
+    let role = localStorage.getItem('role')
+    if (token && role === "admin") {
+      this.props.editGarage_dispatch({form: this.state, token})
+    }
+  }
+
   render () {
     return (
       <div style={{display: `${this.props.editModal_state}`}} id="myModal" class="modal">
@@ -39,7 +47,7 @@ class Edit extends Component {
               <input value={this.state.phone_number}  onChange={(e) => this.setState({phone_number:e.target.value})} placeholder="Phone Number" />
               <input value={this.state.email}  onChange={(e) => this.setState({email:e.target.value})} placeholder="Email" />
               <input value={this.state.max_car}  onChange={(e) => this.setState({max_car:e.target.value})} placeholder="Maximal Car" />
-              <a onClick={() => this.props.editGarage_dispatch(this.state)} className="button-insert" type="button">Submit</a>
+              <a onClick={() => this.editGarage()} className="button-insert" type="button">Submit</a>
             </div>
           </div>
         </div>

@@ -17,9 +17,9 @@ const midty = (req, res, next) => {
   }
 }
 
-router.get('/', garage_controller.findAll)
+router.get('/', midty, garage_controller.findAll)
 router.post('/', midty, garage_controller.insert)
-router.get('/:id', garage_controller.findOne)
+router.get('/:id', midty, garage_controller.findOne)
 router.delete('/:id', midty, garage_controller.deleteOne)
 router.put('/:id', midty, garage_controller.updateOne)
 

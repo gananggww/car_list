@@ -12,7 +12,7 @@ class Controller {
     .then(row =>{
       if(row.password == req.body.password) {
         var token = jwt.sign({ id: row._id, username : row.username }, 'XWORK');
-        res.send({token : token, username : row.username, fullname: row.fullname})
+        res.send({status_code: 1, token : token, username : row.username, fullname: row.fullname, role: row.role})
       } else {
         res.send(err)
       }
