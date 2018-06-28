@@ -12,12 +12,23 @@ import './App.css';
 import store from './redux/store'
 
 class App extends Component {
-
+  isLogin () {
+    let token = localStorage.getItem('token')
+    if (token) {
+      return (
+        <div>
+          <a className="logout-button">Logout</a>
+        </div>
+      )
+    }
+  }
   render() {
     return (
       <Provider store={store}>
         <Router>
           <div>
+            <div className="header">
+            </div>
             <Route exact path="/" render={() => (
               localStorage.getItem('token') ? (
                 <Redirect to="/garages"/>

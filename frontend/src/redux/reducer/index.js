@@ -5,7 +5,8 @@ const defaultState = {
   edit_value: {},
   editCar_modal: 'none',
   editCar_value: {},
-  token: null
+  token: null,
+  error_response: ''
 }
 
 const garageReducer = (state=defaultState, action) => {
@@ -32,6 +33,8 @@ const garageReducer = (state=defaultState, action) => {
       return {...state, car: [...state.car.map(g => g.id === action.payload.id ? action.payload : g)]}
     case 'LOGIN':
       return {...state, token: action.payload}
+    case 'ERROR':
+      return {...state, error_response: action.payload}
     default:
     return state
   }

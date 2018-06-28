@@ -218,5 +218,47 @@ input {
   background-color: #1565C0;
 }
 
+.error-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #B71C1C;
+  font-size: 14px;
+  background-color: #EF9A9A;
+  border-radius: 5px;
+  height:30px;
+  margin-top: 20px;
+}
 
 /* LOGIN - END */
+
+/* HEADER */
+
+.header {
+  box-shadow: 2.5px 2.5px 4px 1px #888888;
+  height: 45px;
+  margin-bottom: 30px;
+  background-color: #FFE57F;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  /* padding: 10px; */
+  /* margin: 10px; */
+  align-items: center;
+}
+
+.logout-button {
+  padding: 5px;
+  border-radius: 4px;
+  margin-right: 20px;
+  color: #F9A825;
+}
+
+.logout-button:hover {
+  background-color: #F9A825;
+  color: white;
+  cursor: pointer
+}
+
+
+/* HEADER-END */

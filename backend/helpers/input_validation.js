@@ -110,7 +110,26 @@ const car = (body) => {
     }
   }
 }
+
+const login = (body) => {
+  if (body.username) {
+    if (body.password) {
+      return 'pass'
+    } else {
+      return {
+        status_code: 0,
+        messege: 'Password cannot be empty'
+      }
+    }
+  } else {
+    return {
+      status_code: 0,
+      messege: 'Username cannot be empty'
+    }
+  }
+}
 module.exports = {
   garage,
-  car
+  car,
+  login
 }

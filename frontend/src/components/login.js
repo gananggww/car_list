@@ -10,15 +10,23 @@ class Login extends Component {
     super()
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      error: ''
     }
   }
 
-  componentWillReceiveProps(newProps) {
-    if (newProps.token_state.tokenStat) {
-      this.props.history.push('/garages')
-    } else {
-      this.props.history.push('/')
+  componentWillReceiveProps(newProps, ownProps) {
+    if (newProps.errorResponse_state) {
+      this.setState({
+        error: newProps.errorResponse_state
+      })
+    }
+    if (newProps.token_state) {
+      if (newProps.token_state.tokenStat) {
+        this.props.history.push('/garages')
+      } else {
+        this.props.history.push('/')
+      }
     }
   }
 
@@ -28,7 +36,12 @@ class Login extends Component {
         <div className="login">
           <div className="login-text">Login</div>
           <input placeholder="Username" onChange={(e) => this.setState({username:e.target.value})} />
-          <input placeholder="Password" onChange={(e) => this.setState({password:e.target.value})}/>
+          <input type="password" placeholder="Password" onChange={(e) => this.setState({password:e.target.value})}/>
+          {this.state.error ? (
+            <div className="error-login">
+              {this.state.error}
+            </div>
+          ) : <div></div>}
           <a onClick={() => this.props.login_dispatch(this.state)} className="login-button">
             Login
           </a>
@@ -41,7 +54,8 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    token_state: state.token
+    token_state: state.token,
+    errorResponse_state: state.error_response
   }
 }
 

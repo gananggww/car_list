@@ -76,6 +76,14 @@ export const actionLogin = (payload) => {
   }
 }
 
+export const actionErr = (payload) => {
+  return {
+    type: 'ERROR',
+    payload
+  }
+}
+
+
 
 
 export const garages = (payload) => {
@@ -193,15 +201,17 @@ export const login = (payload) => {
   const url = `http://localhost:3001/api/user/login`
   axios.post(url, payload)
   .then(response => {
+    console.log(response);
     if (response.data.status_code == 1) {
       localStorage.setItem('token', response.data.token)
       localStorage.setItem('role', response.data.role)
       let tokenStat = localStorage.getItem('token')
       let role = localStorage.getItem('role')
-
       if (tokenStat && role) {
         dispatch(actionLogin({tokenStat, role}))
       }
+    } else {
+      dispatch(actionErr(response.data.messege))
     }
   })
   }
